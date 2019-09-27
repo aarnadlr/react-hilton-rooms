@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Room from './components/Room';
 import styled from 'styled-components';
-
+import Select from './components/Select';
+import Heading from './components/Heading';
 import Context from './context';
 
 const Container = styled.main`
@@ -29,6 +30,20 @@ const Button = styled.button`
     transform: scale(1.04);
     // color: white
   }
+`;
+
+const HeadingContainer = styled.section`
+  padding: 40px;
+  background-color: white;
+  margin-top: 12px;
+  margin-right: ${props => props.marginRight || 0}px;
+  -webkit-box-shadow: 5px 5px 42px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 5px 5px 42px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.15);
+`;
+
+const SelectWrapper = styled.div`
+  display: flex;
 `;
 
 function App() {
@@ -80,7 +95,7 @@ function App() {
       hasCheck: true,
       isChecked: false,
       isDisabled: true
-    },
+    }
   ]);
 
   // ROOM 3: check if Room 4 state has changed
@@ -127,53 +142,40 @@ function App() {
           <FormBody>
             {roomValuesAll.map(item => (
               <Room
-                key={item.room}
-                roomNum={item.room}
-                marginRight={item.room < 4 ? 12 : 0}
-                hasCheck={item.hasCheck}
-                isChecked={item.isChecked}
-                setIsChecked={setRoom2Checked}
-                isDisabled={item.isDisabled}
-                setDisabled={setRoom2Disabled}
-                onCheckboxChange={handleCheckboxChange}
-              />
+              key={item.room}
+              // marginRight={item.room < 4 ? 12 : 0}
+              // isDisabled={item.isDisabled}
+              // setDisabled={setRoom2Disabled}
+              >
+                <HeadingContainer
+                  // marginRight={marginRight}
+                  marginRight={item.room < 4 ? 12 : 0}
+                >
+                  <Heading
+                    hasCheck={item.hasCheck}
+                    roomNum={item.room}
+                    isChecked={item.isChecked}
+                    setIsChecked={setRoom2Checked}
+                    onCheckboxChange={handleCheckboxChange}
+                  />
+
+                  <SelectWrapper>
+                    <Select
+                      userType={'Adult'}
+                      style={{ marginRight: '16px' }}
+                      ageNum={'18+'}
+                      // isDisabled={isDisabled}
+                    />
+
+                    <Select
+                      userType={'Child'}
+                      ageNum={'0-17'}
+                      // isDisabled={isDisabled}
+                    />
+                  </SelectWrapper>
+                </HeadingContainer>
+              </Room>
             ))}
-
-            {/*<Room*/}
-            {/*  roomNum={1}*/}
-            {/*  marginRight={12}*/}
-            {/*  hasCheck={false}*/}
-            {/*  isChecked={null}*/}
-            {/*/>*/}
-
-            {/*<Room*/}
-            {/*  roomNum={2}*/}
-            {/*  marginRight={12}*/}
-            {/*  hasCheck={true}*/}
-            {/*  isChecked={room2Checked}*/}
-            {/*  setIsChecked={setRoom2Checked}*/}
-            {/*  isDisabled={room2Disabled}*/}
-            {/*  setDisabled={setRoom2Disabled}*/}
-            {/*/>*/}
-
-            {/*<Room*/}
-            {/*  roomNum={3}*/}
-            {/*  marginRight={12}*/}
-            {/*  hasCheck={true}*/}
-            {/*  isChecked={room3Checked}*/}
-            {/*  setIsChecked={setRoom3Checked}*/}
-            {/*  isDisabled={room3Disabled}*/}
-            {/*  setDisabled={setRoom3Disabled}*/}
-            {/*/>*/}
-
-            {/*<Room*/}
-            {/*  roomNum={4}*/}
-            {/*  hasCheck={true}*/}
-            {/*  isChecked={room4Checked}*/}
-            {/*  setIsChecked={setRoom4Checked}*/}
-            {/*  isDisabled={room4Disabled}*/}
-            {/*  setDisabled={setRoom4Disabled}*/}
-            {/*/>*/}
           </FormBody>
 
           <Button type="submit">SUBMIT</Button>
