@@ -12,7 +12,7 @@ const Select = ({style, userType='unset', ageNum='00', isDisabled}) => {
   return (
     <div style={{...style, display: 'flex', flexDirection: 'column', width: '50px' }}>
 
-      <label style={{ lineHeight: '1', margin: '0 0 8px 0' }} htmlFor="select">
+      <label style={{ lineHeight: '1', margin: '0 0 8px 0', textAlign: 'center' }} htmlFor="select">
         {userType}
         <br />
         ({ageNum})

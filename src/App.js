@@ -3,14 +3,14 @@ import './App.css';
 import Room from './components/Room';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 28px 40px;
 `;
 
-const Main = styled.main`
+const FormBody = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
@@ -66,13 +66,13 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('SUBMITTED!');
+    console.log('Data: ',);
   };
 
   return (
     <Container>
       <form onSubmit={handleSubmit}>
-        <Main>
+        <FormBody>
           <Room
             roomNum={1}
             marginRight={12}
@@ -108,7 +108,7 @@ function App() {
             isDisabled={room4Disabled}
             setDisabled={setRoom4Disabled}
           />
-        </Main>
+        </FormBody>
 
         <Button type="submit">SUBMIT</Button>
       </form>

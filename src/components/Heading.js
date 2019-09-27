@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Main = styled.main`
+const Main = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 0 24px 0;
