@@ -7,11 +7,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px;
+  padding: 28px 40px;
 `;
 
 const Main = styled.main`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const Button = styled.button`
@@ -63,42 +64,55 @@ function App() {
     setRoom2Disabled(!room2Checked);
   });
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('SUBMITTED!');
+  };
+
   return (
     <Container>
-      <Main>
-        <Room roomNum={1} marginRight={12} hasCheck={false} isChecked={null} />
+      <form onSubmit={handleSubmit}>
+        <Main>
+          <Room
+            roomNum={1}
+            marginRight={12}
+            hasCheck={false}
+            isChecked={null}
+          />
 
-        <Room
-          roomNum={2}
-          marginRight={12}
-          hasCheck={true}
-          isChecked={room2Checked}
-          setIsChecked={setRoom2Checked}
-          isDisabled={room2Disabled}
-          setDisabled={setRoom2Disabled}
-        />
+          <Room
+            roomNum={2}
+            marginRight={12}
+            hasCheck={true}
+            isChecked={room2Checked}
+            setIsChecked={setRoom2Checked}
+            isDisabled={room2Disabled}
+            setDisabled={setRoom2Disabled}
+          />
 
-        <Room
-          roomNum={3}
-          marginRight={12}
-          hasCheck={true}
-          isChecked={room3Checked}
-          setIsChecked={setRoom3Checked}
-          isDisabled={room3Disabled}
-          setDisabled={setRoom3Disabled}
-        />
+          <Room
+            roomNum={3}
+            marginRight={12}
+            hasCheck={true}
+            isChecked={room3Checked}
+            setIsChecked={setRoom3Checked}
+            isDisabled={room3Disabled}
+            setDisabled={setRoom3Disabled}
+          />
 
-        <Room
-          roomNum={4}
-          hasCheck={true}
-          isChecked={room4Checked}
-          setIsChecked={setRoom4Checked}
-          isDisabled={room4Disabled}
-          setDisabled={setRoom4Disabled}
-        />
-      </Main>
+          <Room
+            roomNum={4}
+            hasCheck={true}
+            isChecked={room4Checked}
+            setIsChecked={setRoom4Checked}
+            isDisabled={room4Disabled}
+            setDisabled={setRoom4Disabled}
+          />
+        </Main>
 
-      <Button type="submit">SUBMIT</Button>
+        <Button type="submit">SUBMIT</Button>
+      </form>
+
     </Container>
   );
 }

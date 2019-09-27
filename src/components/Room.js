@@ -5,8 +5,10 @@ import Heading from "./Heading";
 import PropTypes from 'prop-types';
 
 const Main = styled.main`
+
   padding: 32px;
   background-color: white;
+  margin-top: 12px;
   margin-right: ${props => props.marginRight || 0}px;
   -webkit-box-shadow: 5px 5px 42px 0px rgba(0,0,0,0.25);
 -moz-box-shadow: 5px 5px 42px 0px rgba(0,0,0,0.25);
