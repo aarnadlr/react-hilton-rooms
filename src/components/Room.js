@@ -5,9 +5,13 @@ import Heading from "./Heading";
 import PropTypes from 'prop-types';
 
 const Main = styled.main`
-  padding: 24px;
-  background-color: #f3f2f2;
+  padding: 32px;
+  background-color: white;
   margin-right: ${props => props.marginRight || 0}px;
+  -webkit-box-shadow: 5px 5px 42px 0px rgba(0,0,0,0.25);
+-moz-box-shadow: 5px 5px 42px 0px rgba(0,0,0,0.25);
+box-shadow: 5px 5px 30px 0px rgba(0,0,0,0.15);
+
 `;
 
 const Section = styled.section`
