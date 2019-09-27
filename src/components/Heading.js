@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -14,8 +14,7 @@ const Input = styled.input`
   margin: 0 8px 0 0;
 `;
 
-const Heading = ({ hasCheck, roomNum = 0 }) => {
-  const [isChecked, setIsChecked] = useState(true);
+const Heading = ({ hasCheck = false, isChecked, setIsChecked, roomNum = 0 }) => {
 
   const handleCheckboxChange = e => {
     setIsChecked(e.target.checked);
@@ -24,8 +23,7 @@ const Heading = ({ hasCheck, roomNum = 0 }) => {
   return (
     <Main>
       {hasCheck && (
-
-      	// CHECKBOX INPUT
+      	// CHECKBOX
         <Input
           name="roomCheck"
           type="checkbox"
@@ -40,6 +38,8 @@ const Heading = ({ hasCheck, roomNum = 0 }) => {
 
 Heading.propTypes = {
   hasCheck: PropTypes.bool.isRequired,
+  isChecked: PropTypes.bool,
+  setIsChecked: PropTypes.func,
   roomNum: PropTypes.number,
 };
 

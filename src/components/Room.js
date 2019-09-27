@@ -14,29 +14,38 @@ const Section = styled.section`
   display: flex;
 `;
 
-const Room = ({roomNum=0, marginRight=0, hasCheck}) => {
+const Room = ({hasCheck, roomNum=0, marginRight=0, isChecked, setIsChecked, isDisabled, setDisabled}) => {
   return (
     <Main marginRight={marginRight}>
 
-      <Heading roomNum={roomNum} hasCheck={hasCheck}/>
+      <Heading hasCheck={hasCheck} roomNum={roomNum} isChecked={isChecked} setIsChecked={setIsChecked}/>
 
       <Section>
         <Select
           userType={'Adult'}
           style={{ marginRight: '16px'}}
           ageNum={'18+'}
+          isDisabled={isDisabled}
         />
 
-        <Select userType={'Child'} ageNum={'0-17'} />
+        <Select
+          userType={'Child'}
+          ageNum={'0-17'}
+          isDisabled={isDisabled}
+        />
       </Section>
     </Main>
   );
 };
 
 Room.propTypes = {
+  hasCheck: PropTypes.bool.isRequired,
   roomNum: PropTypes.number,
   marginRight: PropTypes.number,
-  hasCheck: PropTypes.bool.isRequired
+  isChecked: PropTypes.bool,
+  setIsChecked: PropTypes.func,
+  isDisabled:PropTypes.bool,
+  setDisabled:PropTypes.func
 };
 
 export default Room;

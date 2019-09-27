@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 
-const Select = ({style, userType='unset', ageNum='00'}) => {
+const Select = ({style, userType='unset', ageNum='00', isDisabled}) => {
   const [selected, setSelected] = useState('');
 
   const handleChange = e => {
@@ -22,6 +22,7 @@ const Select = ({style, userType='unset', ageNum='00'}) => {
         id="select"
         value={selected}
         onChange={handleChange}
+        disabled={isDisabled}
       >
         <option value="0">0</option>
         <option value="1">1</option>
@@ -33,10 +34,10 @@ const Select = ({style, userType='unset', ageNum='00'}) => {
 };
 
 Select.propTypes = {
-  // userType: PropTypes.string.isRequired
   style: PropTypes.object,
   userType: PropTypes.string,
-  ageNum: PropTypes.string
+  ageNum: PropTypes.string,
+  isDisabled: PropTypes.bool
 };
 
 export default Select;
