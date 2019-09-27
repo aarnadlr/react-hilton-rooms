@@ -3,6 +3,8 @@ import './App.css';
 import Room from './components/Room';
 import styled from 'styled-components';
 
+import Context from './context';
+
 const Container = styled.main`
   display: flex;
   flex-direction: column;
@@ -30,6 +32,13 @@ const Button = styled.button`
 `;
 
 function App() {
+  // const [room1Values, setRoom1Values] = useState([]);
+
+  // const handleCheckboxChange = roomNum => {
+  //   console.log('CHANGED: ', roomNum);
+  //   // setIsChecked(e.target.checked);
+  // };
+
   const [room4Checked, setRoom4Checked] = useState(false);
   const [room4Disabled, setRoom4Disabled] = useState(room4Checked);
 
@@ -38,6 +47,41 @@ function App() {
 
   const [room2Checked, setRoom2Checked] = useState(room3Checked);
   const [room2Disabled, setRoom2Disabled] = useState(room2Checked);
+
+  const [roomValuesAll, setRoomValuesAll] = useState([
+    {
+      room: 1,
+      adult: 0,
+      child: 0,
+      hasCheck: false,
+      isChecked: room2Checked,
+      isDisabled: false
+    },
+    {
+      room: 2,
+      adult: 0,
+      child: 0,
+      hasCheck: true,
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      room: 3,
+      adult: 0,
+      child: 0,
+      hasCheck: true,
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      room: 4,
+      adult: 0,
+      child: 0,
+      hasCheck: true,
+      isChecked: false,
+      isDisabled: true
+    },
+  ]);
 
   // ROOM 3: check if Room 4 state has changed
   useEffect(() => {
@@ -66,54 +110,76 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('Data: ',);
+    console.log('Data: ');
+  };
+
+  const handleCheckboxChange = roomNum => {
+    console.log('CHANGED: ', roomNum);
+    // setRoomValuesAll(e.target.checked);
+    // setRoomValuesAll(roomValuesAll[roomNum-1].isChecked = !roomValuesAll[roomNum-1].isChecked);
+    // setRoomValuesAll([...roomValuesAll, roomValuesAll[roomNum-1].isChecked=!roomValuesAll[roomNum-1].isChecked]);
   };
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <FormBody>
-          <Room
-            roomNum={1}
-            marginRight={12}
-            hasCheck={false}
-            isChecked={null}
-          />
+    <Context.Provider value={roomValuesAll}>
+      <Container>
+        <form onSubmit={handleSubmit}>
+          <FormBody>
+            {roomValuesAll.map(item => (
+              <Room
+                key={item.room}
+                roomNum={item.room}
+                marginRight={item.room < 4 ? 12 : 0}
+                hasCheck={item.hasCheck}
+                isChecked={item.isChecked}
+                setIsChecked={setRoom2Checked}
+                isDisabled={item.isDisabled}
+                setDisabled={setRoom2Disabled}
+                onCheckboxChange={handleCheckboxChange}
+              />
+            ))}
 
-          <Room
-            roomNum={2}
-            marginRight={12}
-            hasCheck={true}
-            isChecked={room2Checked}
-            setIsChecked={setRoom2Checked}
-            isDisabled={room2Disabled}
-            setDisabled={setRoom2Disabled}
-          />
+            {/*<Room*/}
+            {/*  roomNum={1}*/}
+            {/*  marginRight={12}*/}
+            {/*  hasCheck={false}*/}
+            {/*  isChecked={null}*/}
+            {/*/>*/}
 
-          <Room
-            roomNum={3}
-            marginRight={12}
-            hasCheck={true}
-            isChecked={room3Checked}
-            setIsChecked={setRoom3Checked}
-            isDisabled={room3Disabled}
-            setDisabled={setRoom3Disabled}
-          />
+            {/*<Room*/}
+            {/*  roomNum={2}*/}
+            {/*  marginRight={12}*/}
+            {/*  hasCheck={true}*/}
+            {/*  isChecked={room2Checked}*/}
+            {/*  setIsChecked={setRoom2Checked}*/}
+            {/*  isDisabled={room2Disabled}*/}
+            {/*  setDisabled={setRoom2Disabled}*/}
+            {/*/>*/}
 
-          <Room
-            roomNum={4}
-            hasCheck={true}
-            isChecked={room4Checked}
-            setIsChecked={setRoom4Checked}
-            isDisabled={room4Disabled}
-            setDisabled={setRoom4Disabled}
-          />
-        </FormBody>
+            {/*<Room*/}
+            {/*  roomNum={3}*/}
+            {/*  marginRight={12}*/}
+            {/*  hasCheck={true}*/}
+            {/*  isChecked={room3Checked}*/}
+            {/*  setIsChecked={setRoom3Checked}*/}
+            {/*  isDisabled={room3Disabled}*/}
+            {/*  setDisabled={setRoom3Disabled}*/}
+            {/*/>*/}
 
-        <Button type="submit">SUBMIT</Button>
-      </form>
+            {/*<Room*/}
+            {/*  roomNum={4}*/}
+            {/*  hasCheck={true}*/}
+            {/*  isChecked={room4Checked}*/}
+            {/*  setIsChecked={setRoom4Checked}*/}
+            {/*  isDisabled={room4Disabled}*/}
+            {/*  setDisabled={setRoom4Disabled}*/}
+            {/*/>*/}
+          </FormBody>
 
-    </Container>
+          <Button type="submit">SUBMIT</Button>
+        </form>
+      </Container>
+    </Context.Provider>
   );
 }
 

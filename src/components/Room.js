@@ -25,7 +25,8 @@ const Room = ({
   isChecked,
   setIsChecked,
   isDisabled,
-  setDisabled
+  setDisabled,
+	onCheckboxChange
 }) => {
   return (
     <Container marginRight={marginRight}>
@@ -34,6 +35,7 @@ const Room = ({
         roomNum={roomNum}
         isChecked={isChecked}
         setIsChecked={setIsChecked}
+				onCheckboxChange={onCheckboxChange}
       />
 
       <SelectWrapper>
