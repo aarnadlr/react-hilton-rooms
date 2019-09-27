@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+
 const Select = ({style, userType='unset', ageNum='00'}) => {
   const [selected, setSelected] = useState('');
 
@@ -10,11 +11,13 @@ const Select = ({style, userType='unset', ageNum='00'}) => {
 
   return (
     <div style={{...style, display: 'flex', flexDirection: 'column', width: '50px' }}>
+
       <label style={{ lineHeight: '1', margin: '0 0 8px 0' }} htmlFor="select">
         {userType}
         <br />
         ({ageNum})
       </label>
+
       <select
         id="select"
         value={selected}

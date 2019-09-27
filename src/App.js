@@ -1,20 +1,23 @@
 import React from 'react';
 import './App.css';
-import Select from './components/Select';
+import Room from "./components/Room";
+import styled from 'styled-components';
+
+const Main = styled.main`
+display: flex;
+padding: 40px;
+`;
 
 function App() {
   return (
-    <main style={{ display: 'flex' }}>
+    <Main >
 
-      <Select
-        userType={'Adult'}
-        style={{ marginRight: '16px' }}
-        ageNum={'18+'}
-      />
+			<Room roomNum={1} marginRight={12} hasCheck={false}/>
+			<Room roomNum={2} marginRight={12} hasCheck={true}/>
+			<Room roomNum={3} marginRight={12} hasCheck={true}/>
+			<Room roomNum={4} hasCheck={true}/>
 
-      <Select userType={'Child'} ageNum={'0-17'} />
-
-    </main>
+    </Main>
   );
 }
 
