@@ -1,3 +1,5 @@
-# React Example
+# Hilton Hotels room-selection prototype
 
-This directory is a brief example of a [React](https://reactjs.org/) app with [Serverless Functions](https://zeit.co/docs/v2/serverless-functions/introduction) that can be deployed with ZEIT Now and zero configuration.
+- Bootstrapped with create-react-app.
+- On SUBMIT, user data is displayed on the page, and   form state is printed to console.
+- Deployed to URL https://react-hilton-rooms.aarnadlr.now.sh/ via Zeit Now.

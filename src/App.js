@@ -4,6 +4,7 @@ import Room from './components/Room';
 import styled from 'styled-components';
 import Select from './components/Select';
 import Heading from './components/Heading';
+import { usePersistentState } from './localstorage';
 
 const Container = styled.main`
   display: flex;
@@ -47,7 +48,7 @@ const SelectWrapper = styled.div`
 function App() {
   const [submitted, setSubmitted] = useState(false);
 
-  const [roomValuesAll, setRoomValuesAll] = useState([
+  const [roomValuesAll, setRoomValuesAll] = usePersistentState(123, [
     {
       room: 1,
       adult: 0,
@@ -227,20 +228,22 @@ function App() {
         <Button type="submit">SUBMIT</Button>
       </form>
 
-      <div style={{marginTop:'48px'}}>{submitted && (
-        <>
-          <strong>Submitted User Data (also printed to console):</strong>
-          <br/>
-          {roomValuesAll.map(item => (
-            <div key={item.room}>
-              <p>Room: {item.room}</p>
-              <p>Adults: {item.adult}</p>
-              <p>Children: {item.child}</p>
-              <hr/>
-            </div>
-          ))}
-        </>
-      )}</div>
+      <div style={{ marginTop: '48px' }}>
+        {submitted && (
+          <>
+            <strong>Submitted User Data (also printed to console):</strong>
+            <br />
+            {roomValuesAll.map(item => (
+              <div key={item.room}>
+                <p>Room: {item.room}</p>
+                <p>Adults: {item.adult}</p>
+                <p>Children: {item.child}</p>
+                <hr />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </Container>
   );
 }

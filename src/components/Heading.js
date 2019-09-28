@@ -14,17 +14,7 @@ const Input = styled.input`
   margin: 0 8px 0 0;
 `;
 
-const Heading = ({
-  hasCheck = false,
-  isChecked,
-  setIsChecked,
-  roomNum = 0,
-  onCheckboxChange
-}) => {
-  // const handleCheckboxChange = e => {
-  //   setIsChecked(e.target.checked);
-  // };
-
+const Heading = ({ hasCheck, isChecked, roomNum = 0, onCheckboxChange }) => {
   return (
     <Main>
       {hasCheck && (
@@ -42,10 +32,10 @@ const Heading = ({
 };
 
 Heading.propTypes = {
-  // hasCheck: PropTypes.bool.isRequired,
-  // isChecked: PropTypes.bool,
-  // setIsChecked: PropTypes.func,
-  // roomNum: PropTypes.number
+  hasCheck: PropTypes.bool.isRequired,
+  isChecked: PropTypes.bool.isRequired,
+  roomNum: PropTypes.number.isRequired,
+  onCheckboxChange: PropTypes.func.isRequired
 };
 
 export default Heading;
