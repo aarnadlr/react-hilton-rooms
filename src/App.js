@@ -88,8 +88,8 @@ function App() {
           if (item.room < 4) {
             return {
               room: item.room,
-              adult: 0,
-              child: 0,
+              adult: item.adult,
+              child: item.child,
               hasCheck: item.hasCheck,
               isChecked: true,
               isDisabled: true
@@ -109,8 +109,8 @@ function App() {
           if (item.room < 3) {
             return {
               room: item.room,
-              adult: 0,
-              child: 0,
+              adult: item.adult,
+              child: item.child,
               hasCheck: item.hasCheck,
               isChecked: true,
               isDisabled: true
@@ -147,6 +147,34 @@ function App() {
     );
   };
 
+  const handleSelectChange = (name, roomNum, e ) => {
+    setRoomValuesAll(
+      roomValuesAll.map(item => {
+        if (name === 'adult' && item.room===roomNum) {
+          return {
+            room: item.room,
+            adult: e.target.value,
+            child: item.child,
+            hasCheck: item.hasCheck,
+            isChecked: item.isChecked,
+            isDisabled: item.isDisabled
+          };
+        }
+        if (name === 'child' && item.room===roomNum) {
+          return {
+            room: item.room,
+            adult: item.adult,
+            child: e.target.value,
+            hasCheck: item.hasCheck,
+            isChecked: item.isChecked,
+            isDisabled: item.isDisabled
+          };
+        }
+        return item;
+      })
+    );
+  };
+
   return (
     <Container>
       <form onSubmit={handleSubmit}>
@@ -163,6 +191,8 @@ function App() {
                 />
 
                 <SelectWrapper>
+
+                  {/* ADULT DROPDOWN */}
                   <Select
                     userType={'Adult'}
                     style={{ marginRight: '16px' }}
@@ -171,8 +201,12 @@ function App() {
                     	item.room < 2 ? false :
                     	!item.isChecked
                     }
+                    selectValue={item.adult}
+                    handleSelectChange={(e)=>handleSelectChange('adult', item.room, e)}
+                    name={'adult'}
                   />
 
+                  {/* CHILD DROPDOWN */}
                   <Select
                     userType={'Child'}
                     ageNum={'0-17'}
@@ -180,7 +214,11 @@ function App() {
                     	item.room < 2 ? false :
                     	!item.isChecked
                     }
+                    selectValue={item.child}
+                    handleSelectChange={(e)=>handleSelectChange('child', item.room, e)}
+                    name={'child'}
                   />
+
                 </SelectWrapper>
               </HeadingContainer>
             </Room>

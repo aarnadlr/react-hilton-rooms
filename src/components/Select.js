@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 
-const Select = ({ style, userType = 'unset', ageNum = '00', isDisabled }) => {
-  const [selected, setSelected] = useState('');
+const Select = ({ style, userType = 'unset', ageNum = '00', isDisabled, selectValue, handleSelectChange, name }) => {
+  // const [selected, setSelected] = useState('');
   //
-  const handleChange = e => {
-    setSelected(e.target.value);
-  };
+  // const handleChange = e => {
+  //   setSelected(e.target.value);
+  // };
 
   return (
         <div
@@ -27,9 +27,10 @@ const Select = ({ style, userType = 'unset', ageNum = '00', isDisabled }) => {
         </label>
 
         <select
+          name={name}
           id="select"
-          value={selected}
-          onChange={handleChange}
+          value={selectValue}
+          onChange={handleSelectChange}
           disabled={isDisabled}
         >
           <option value="0">0</option>
