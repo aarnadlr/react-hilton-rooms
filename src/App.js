@@ -4,7 +4,6 @@ import Room from './components/Room';
 import styled from 'styled-components';
 import Select from './components/Select';
 import Heading from './components/Heading';
-import Context from './context';
 
 const Container = styled.main`
   display: flex;
@@ -47,7 +46,15 @@ const SelectWrapper = styled.div`
 `;
 
 function App() {
-  // const [room1Values, setRoom1Values] = useState([]);
+
+  // const [room2, setRoom2] = useState({
+  //   room: 2,
+  //   adult: 0,
+  //   child: 0,
+  //   hasCheck: true,
+  //   isChecked: false,
+  //   isDisabled: true
+  // });
 
   // const handleCheckboxChange = roomNum => {
   //   console.log('CHANGED: ', roomNum);
@@ -69,7 +76,7 @@ function App() {
       adult: 0,
       child: 0,
       hasCheck: false,
-      isChecked: room2Checked,
+      isChecked: null,
       isDisabled: false
     },
     {
@@ -99,29 +106,32 @@ function App() {
   ]);
 
   // ROOM 3: check if Room 4 state has changed
-  useEffect(() => {
-    setRoom3Checked(room4Checked);
-  }, [room4Checked]);
-
-  // ROOM 2: check if Room 3 or 4 state has changed
-  useEffect(() => {
-    setRoom2Checked(room3Checked);
-  }, [room3Checked, room4Checked]);
-
-  // ROOM 4: Map DISABLED to CHECKED
-  useEffect(() => {
-    setRoom4Disabled(!room4Checked);
-  });
-
-  // ROOM 3: Map DISABLED to CHECKED
-  useEffect(() => {
-    setRoom3Disabled(!room3Checked);
-  });
-
-  // ROOM 2: Map DISABLED to CHECKED
-  useEffect(() => {
-    setRoom2Disabled(!room2Checked);
-  });
+  // useEffect(() => {
+  //   setRoom3Checked(room4Checked);
+  // }, [room4Checked]);
+	//
+  // // ROOM 2: check if Room 3 or 4 state has changed
+  // useEffect(() => {
+  //   setRoom2Checked(room3Checked);
+  // }, [room3Checked, room4Checked]);
+	//
+  // // ROOM 4: Map DISABLED to CHECKED
+  // useEffect(() => {
+  //   setRoom4Disabled(!room4Checked);
+  // });
+	//
+  // // ROOM 3: Map DISABLED to CHECKED
+  // useEffect(() => {
+  //   setRoom3Disabled(!room3Checked);
+  // });
+	//
+  // // ROOM 2: Map DISABLED to CHECKED
+  // useEffect(() => {
+  //   setRoom2Disabled(!room2Checked);
+  // });
+	// useEffect(()=>{
+	//
+	// })
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -129,59 +139,63 @@ function App() {
   };
 
   const handleCheckboxChange = roomNum => {
-    console.log('CHANGED: ', roomNum);
-    // setRoomValuesAll(e.target.checked);
-    // setRoomValuesAll(roomValuesAll[roomNum-1].isChecked = !roomValuesAll[roomNum-1].isChecked);
-    // setRoomValuesAll([...roomValuesAll, roomValuesAll[roomNum-1].isChecked=!roomValuesAll[roomNum-1].isChecked]);
+    console.log('CHANGED!: ', roomNum);
+
+    setRoomValuesAll( roomValuesAll.map(item=>{
+    	if(item.room===roomNum){
+    		return {
+    			room: item.room,
+					adult: 0,
+					child: 0,
+					hasCheck: true,
+					isChecked: !item.isChecked,
+					isDisabled: true
+				}
+			}
+    	return item;
+		}));
+
   };
 
   return (
-    <Context.Provider value={roomValuesAll}>
-      <Container>
-        <form onSubmit={handleSubmit}>
-          <FormBody>
-            {roomValuesAll.map(item => (
-              <Room
-              key={item.room}
-              // marginRight={item.room < 4 ? 12 : 0}
-              // isDisabled={item.isDisabled}
-              // setDisabled={setRoom2Disabled}
-              >
-                <HeadingContainer
-                  // marginRight={marginRight}
-                  marginRight={item.room < 4 ? 12 : 0}
-                >
-                  <Heading
-                    hasCheck={item.hasCheck}
-                    roomNum={item.room}
-                    isChecked={item.isChecked}
-                    setIsChecked={setRoom2Checked}
-                    onCheckboxChange={handleCheckboxChange}
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <FormBody>
+          {roomValuesAll.map(item => (
+            <Room key={item.room}>
+              <HeadingContainer marginRight={item.room < 4 ? 12 : 0}>
+                <Heading
+                  hasCheck={item.hasCheck}
+                  roomNum={item.room}
+                  isChecked={item.isChecked}
+                  // setIsChecked={setRoom2Checked}
+                  onCheckboxChange={()=>handleCheckboxChange(item.room)}
+                  isDisabled={item.isDisabled}
+                  // setDisabled={setRoom2Disabled}
+                />
+
+                <SelectWrapper>
+                  <Select
+                    userType={'Adult'}
+                    style={{ marginRight: '16px' }}
+                    ageNum={'18+'}
+                    // isDisabled={isDisabled}
                   />
 
-                  <SelectWrapper>
-                    <Select
-                      userType={'Adult'}
-                      style={{ marginRight: '16px' }}
-                      ageNum={'18+'}
-                      // isDisabled={isDisabled}
-                    />
+                  <Select
+                    userType={'Child'}
+                    ageNum={'0-17'}
+                    // isDisabled={isDisabled}
+                  />
+                </SelectWrapper>
+              </HeadingContainer>
+            </Room>
+          ))}
+        </FormBody>
 
-                    <Select
-                      userType={'Child'}
-                      ageNum={'0-17'}
-                      // isDisabled={isDisabled}
-                    />
-                  </SelectWrapper>
-                </HeadingContainer>
-              </Room>
-            ))}
-          </FormBody>
-
-          <Button type="submit">SUBMIT</Button>
-        </form>
-      </Container>
-    </Context.Provider>
+        <Button type="submit">SUBMIT</Button>
+      </form>
+    </Container>
   );
 }
 

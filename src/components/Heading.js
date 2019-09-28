@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Context from '../context';
 
 const Main = styled.div`
   display: flex;
@@ -27,30 +26,26 @@ const Heading = ({
   // };
 
   return (
-    <Context.Consumer>
-      {(roomValuesAll) => (
-        <Main>
-          {hasCheck && (
-            // CHECKBOX
-            <Input
-              name="roomCheck"
-              type="checkbox"
-              checked={isChecked}
-              onChange={onCheckboxChange()}
-            />
-          )}
-          <header>Room {roomNum}</header>
-        </Main>
+    <Main>
+      {hasCheck && (
+        // CHECKBOX
+        <Input
+          name="roomCheck"
+          type="checkbox"
+          checked={isChecked}
+          onChange={onCheckboxChange}
+        />
       )}
-    </Context.Consumer>
+      <header>Room {roomNum}</header>
+    </Main>
   );
 };
 
 Heading.propTypes = {
-  hasCheck: PropTypes.bool.isRequired,
-  isChecked: PropTypes.bool,
-  setIsChecked: PropTypes.func,
-  roomNum: PropTypes.number
+  // hasCheck: PropTypes.bool.isRequired,
+  // isChecked: PropTypes.bool,
+  // setIsChecked: PropTypes.func,
+  // roomNum: PropTypes.number
 };
 
 export default Heading;

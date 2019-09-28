@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Context from '../context';
 
 const Select = ({ style, userType = 'unset', ageNum = '00', isDisabled }) => {
   const [selected, setSelected] = useState('');
@@ -11,8 +10,6 @@ const Select = ({ style, userType = 'unset', ageNum = '00', isDisabled }) => {
   };
 
   return (
-    <Context.Consumer>
-      {(roomValuesAll)=>(
         <div
         style={{
           ...style,
@@ -41,9 +38,6 @@ const Select = ({ style, userType = 'unset', ageNum = '00', isDisabled }) => {
           <option value="3">3</option>
         </select>
       </div>
-      )}
-
-    </Context.Consumer>
   );
 };
 
