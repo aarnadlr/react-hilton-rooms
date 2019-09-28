@@ -27,7 +27,6 @@ const Button = styled.button`
   &:hover {
     background-color: #ebebeb;
     transform: scale(1.04);
-    // color: white
   }
 `;
 
@@ -46,30 +45,6 @@ const SelectWrapper = styled.div`
 `;
 
 function App() {
-
-  // const [room2, setRoom2] = useState({
-  //   room: 2,
-  //   adult: 0,
-  //   child: 0,
-  //   hasCheck: true,
-  //   isChecked: false,
-  //   isDisabled: true
-  // });
-
-  // const handleCheckboxChange = roomNum => {
-  //   console.log('CHANGED: ', roomNum);
-  //   // setIsChecked(e.target.checked);
-  // };
-
-  const [room4Checked, setRoom4Checked] = useState(false);
-  const [room4Disabled, setRoom4Disabled] = useState(room4Checked);
-
-  const [room3Checked, setRoom3Checked] = useState(room4Checked);
-  const [room3Disabled, setRoom3Disabled] = useState(room3Checked);
-
-  const [room2Checked, setRoom2Checked] = useState(room3Checked);
-  const [room2Disabled, setRoom2Disabled] = useState(room2Checked);
-
   const [roomValuesAll, setRoomValuesAll] = useState([
     {
       room: 1,
@@ -109,29 +84,48 @@ function App() {
   // useEffect(() => {
   //   setRoom3Checked(room4Checked);
   // }, [room4Checked]);
-	//
+  //
   // // ROOM 2: check if Room 3 or 4 state has changed
   // useEffect(() => {
   //   setRoom2Checked(room3Checked);
   // }, [room3Checked, room4Checked]);
-	//
+  //
   // // ROOM 4: Map DISABLED to CHECKED
   // useEffect(() => {
   //   setRoom4Disabled(!room4Checked);
   // });
-	//
+  //
   // // ROOM 3: Map DISABLED to CHECKED
   // useEffect(() => {
   //   setRoom3Disabled(!room3Checked);
   // });
-	//
+  //
   // // ROOM 2: Map DISABLED to CHECKED
   // useEffect(() => {
   //   setRoom2Disabled(!room2Checked);
   // });
-	// useEffect(()=>{
-	//
-	// })
+
+
+  // CHANGE ROOMS 2 & 3 to CHECKED if Room 4 is CHECKED
+  useEffect(() => {
+    if (roomValuesAll[3].isChecked === true) {
+      setRoomValuesAll(
+        roomValuesAll.map(item => {
+          if (item.room < 4) {
+            return {
+              room: item.room,
+              adult: 0,
+              child: 0,
+              hasCheck: item.hasCheck,
+              isChecked: true,
+              isDisabled: true
+            };
+          }
+          return item;
+        })
+      );
+    }
+  },[roomValuesAll[3]]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -141,20 +135,21 @@ function App() {
   const handleCheckboxChange = roomNum => {
     console.log('CHANGED!: ', roomNum);
 
-    setRoomValuesAll( roomValuesAll.map(item=>{
-    	if(item.room===roomNum){
-    		return {
-    			room: item.room,
-					adult: 0,
-					child: 0,
-					hasCheck: true,
-					isChecked: !item.isChecked,
-					isDisabled: true
-				}
-			}
-    	return item;
-		}));
-
+    setRoomValuesAll(
+      roomValuesAll.map(item => {
+        if (item.room === roomNum) {
+          return {
+            room: item.room,
+            adult: 0,
+            child: 0,
+            hasCheck: true,
+            isChecked: !item.isChecked,
+            isDisabled: true
+          };
+        }
+        return item;
+      })
+    );
   };
 
   return (
@@ -169,7 +164,7 @@ function App() {
                   roomNum={item.room}
                   isChecked={item.isChecked}
                   // setIsChecked={setRoom2Checked}
-                  onCheckboxChange={()=>handleCheckboxChange(item.room)}
+                  onCheckboxChange={() => handleCheckboxChange(item.room)}
                   isDisabled={item.isDisabled}
                   // setDisabled={setRoom2Disabled}
                 />
@@ -179,13 +174,19 @@ function App() {
                     userType={'Adult'}
                     style={{ marginRight: '16px' }}
                     ageNum={'18+'}
-                    // isDisabled={isDisabled}
+                    isDisabled={
+                    	item.room < 2 ? false :
+                    	!item.isChecked
+                    }
                   />
 
                   <Select
                     userType={'Child'}
                     ageNum={'0-17'}
-                    // isDisabled={isDisabled}
+                    isDisabled={
+                    	item.room < 2 ? false :
+                    	!item.isChecked
+                    }
                   />
                 </SelectWrapper>
               </HeadingContainer>
