@@ -45,6 +45,8 @@ const SelectWrapper = styled.div`
 `;
 
 function App() {
+  const [submitted, setSubmitted] = useState(false);
+
   const [roomValuesAll, setRoomValuesAll] = useState([
     {
       room: 1,
@@ -99,9 +101,9 @@ function App() {
         })
       );
     }
-  },[roomValuesAll[3]]);
+  }, [roomValuesAll[3]]);
 
-   // CHANGE ROOM 2 to CHECKED if Room 3 is CHECKED
+  // CHANGE ROOM 2 to CHECKED if Room 3 is CHECKED
   useEffect(() => {
     if (roomValuesAll[2].isChecked === true) {
       setRoomValuesAll(
@@ -120,13 +122,14 @@ function App() {
         })
       );
     }
-  },[roomValuesAll[2]]);
+  }, [roomValuesAll[2]]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('Data: ',
-      JSON.stringify(roomValuesAll)
-    );
+
+    setSubmitted(true);
+
+    console.log('Data: ', JSON.stringify(roomValuesAll));
   };
 
   const handleCheckboxChange = roomNum => {
@@ -147,10 +150,10 @@ function App() {
     );
   };
 
-  const handleSelectChange = (name, roomNum, e ) => {
+  const handleSelectChange = (name, roomNum, e) => {
     setRoomValuesAll(
       roomValuesAll.map(item => {
-        if (name === 'adult' && item.room===roomNum) {
+        if (name === 'adult' && item.room === roomNum) {
           return {
             room: item.room,
             adult: e.target.value,
@@ -160,7 +163,7 @@ function App() {
             isDisabled: item.isDisabled
           };
         }
-        if (name === 'child' && item.room===roomNum) {
+        if (name === 'child' && item.room === roomNum) {
           return {
             room: item.room,
             adult: item.adult,
@@ -191,18 +194,16 @@ function App() {
                 />
 
                 <SelectWrapper>
-
                   {/* ADULT DROPDOWN */}
                   <Select
                     userType={'Adult'}
                     style={{ marginRight: '16px' }}
                     ageNum={'18+'}
-                    isDisabled={
-                    	item.room < 2 ? false :
-                    	!item.isChecked
-                    }
+                    isDisabled={item.room < 2 ? false : !item.isChecked}
                     selectValue={item.adult}
-                    handleSelectChange={(e)=>handleSelectChange('adult', item.room, e)}
+                    handleSelectChange={e =>
+                      handleSelectChange('adult', item.room, e)
+                    }
                     name={'adult'}
                   />
 
@@ -210,15 +211,13 @@ function App() {
                   <Select
                     userType={'Child'}
                     ageNum={'0-17'}
-                    isDisabled={
-                    	item.room < 2 ? false :
-                    	!item.isChecked
-                    }
+                    isDisabled={item.room < 2 ? false : !item.isChecked}
                     selectValue={item.child}
-                    handleSelectChange={(e)=>handleSelectChange('child', item.room, e)}
+                    handleSelectChange={e =>
+                      handleSelectChange('child', item.room, e)
+                    }
                     name={'child'}
                   />
-
                 </SelectWrapper>
               </HeadingContainer>
             </Room>
@@ -227,6 +226,21 @@ function App() {
 
         <Button type="submit">SUBMIT</Button>
       </form>
+
+      <div style={{marginTop:'48px'}}>{submitted && (
+        <>
+          <strong>Submitted User Data (also printed to console):</strong>
+          <br/>
+          {roomValuesAll.map(item => (
+            <div key={item.room}>
+              <p>Room: {item.room}</p>
+              <p>Adults: {item.adult}</p>
+              <p>Children: {item.child}</p>
+              <hr/>
+            </div>
+          ))}
+        </>
+      )}</div>
     </Container>
   );
 }
