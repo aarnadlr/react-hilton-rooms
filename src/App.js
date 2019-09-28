@@ -80,32 +80,6 @@ function App() {
     }
   ]);
 
-  // ROOM 3: check if Room 4 state has changed
-  // useEffect(() => {
-  //   setRoom3Checked(room4Checked);
-  // }, [room4Checked]);
-  //
-  // // ROOM 2: check if Room 3 or 4 state has changed
-  // useEffect(() => {
-  //   setRoom2Checked(room3Checked);
-  // }, [room3Checked, room4Checked]);
-  //
-  // // ROOM 4: Map DISABLED to CHECKED
-  // useEffect(() => {
-  //   setRoom4Disabled(!room4Checked);
-  // });
-  //
-  // // ROOM 3: Map DISABLED to CHECKED
-  // useEffect(() => {
-  //   setRoom3Disabled(!room3Checked);
-  // });
-  //
-  // // ROOM 2: Map DISABLED to CHECKED
-  // useEffect(() => {
-  //   setRoom2Disabled(!room2Checked);
-  // });
-
-
   // CHANGE ROOMS 2 & 3 to CHECKED if Room 4 is CHECKED
   useEffect(() => {
     if (roomValuesAll[3].isChecked === true) {
@@ -127,14 +101,35 @@ function App() {
     }
   },[roomValuesAll[3]]);
 
+   // CHANGE ROOM 2 to CHECKED if Room 3 is CHECKED
+  useEffect(() => {
+    if (roomValuesAll[2].isChecked === true) {
+      setRoomValuesAll(
+        roomValuesAll.map(item => {
+          if (item.room < 3) {
+            return {
+              room: item.room,
+              adult: 0,
+              child: 0,
+              hasCheck: item.hasCheck,
+              isChecked: true,
+              isDisabled: true
+            };
+          }
+          return item;
+        })
+      );
+    }
+  },[roomValuesAll[2]]);
+
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('Data: ');
+    console.log('Data: ',
+      JSON.stringify(roomValuesAll)
+    );
   };
 
   const handleCheckboxChange = roomNum => {
-    console.log('CHANGED!: ', roomNum);
-
     setRoomValuesAll(
       roomValuesAll.map(item => {
         if (item.room === roomNum) {
@@ -163,10 +158,8 @@ function App() {
                   hasCheck={item.hasCheck}
                   roomNum={item.room}
                   isChecked={item.isChecked}
-                  // setIsChecked={setRoom2Checked}
                   onCheckboxChange={() => handleCheckboxChange(item.room)}
                   isDisabled={item.isDisabled}
-                  // setDisabled={setRoom2Disabled}
                 />
 
                 <SelectWrapper>
