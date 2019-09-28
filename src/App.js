@@ -48,7 +48,7 @@ const SelectWrapper = styled.div`
 function App() {
   const [submitted, setSubmitted] = useState(false);
 
-  const [roomValuesAll, setRoomValuesAll] = usePersistentState(123, [
+  const [roomValuesAll, setRoomValuesAll] = usePersistentState('data', [
     {
       room: 1,
       adult: 0,
@@ -228,8 +228,8 @@ function App() {
         <Button type="submit">SUBMIT</Button>
       </form>
 
-      <div style={{ marginTop: '48px' }}>
-        {submitted && (
+      {submitted && (
+        <div style={{ marginTop: '48px' }}>
           <>
             <strong>Submitted User Data (also printed to console):</strong>
             <br />
@@ -242,8 +242,8 @@ function App() {
               </div>
             ))}
           </>
-        )}
-      </div>
+        </div>
+      )}
     </Container>
   );
 }

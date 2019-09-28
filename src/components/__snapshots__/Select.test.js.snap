@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    style="display: flex; flex-direction: column; width: 50px;"
+  >
+    <label
+      data-testid="select-label-tag"
+      for="select"
+      style="line-height: 1; margin: 0px 0px 8px 0px; text-align: center;"
+    >
+      Adult
+      <br />
+      (18)
+    </label>
+    <select
+      id="select"
+      name="adult"
+    >
+      <option
+        value="0"
+      >
+        0
+      </option>
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+      <option
+        value="3"
+      >
+        3
+      </option>
+    </select>
+  </div>
+</DocumentFragment>
+`;

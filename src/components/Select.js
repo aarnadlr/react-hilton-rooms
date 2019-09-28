@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const Select = ({
   style,
-  userType = 'unset',
-  ageNum = '00',
+  userType,
+  ageNum,
   isDisabled,
   selectValue,
   handleSelectChange,
@@ -22,9 +22,11 @@ const Select = ({
       <label
         style={{ lineHeight: '1', margin: '0 0 8px 0', textAlign: 'center' }}
         htmlFor="select"
+        data-testid={'select-label-tag'}
       >
         {userType}
-        <br />({ageNum})
+        <br />
+        ({ageNum})
       </label>
 
       <select
@@ -48,9 +50,9 @@ Select.propTypes = {
   userType: PropTypes.string.isRequired,
   ageNum: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
-  selectValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  handleSelectChange: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  handleSelectChange: PropTypes.func,
+  selectValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default Select;

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdVaJa yFXSK"
+  >
+    <header
+      data-testid="heading-header-tag"
+    >
+      Room 1
+    </header>
+  </div>
+</DocumentFragment>
+`;
