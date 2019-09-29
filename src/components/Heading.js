@@ -14,9 +14,9 @@ const Input = styled.input`
   margin: 0 8px 0 0;
 `;
 
-const Heading = ({ hasCheck, isChecked, roomNum = 0, onCheckboxChange }) => {
+const Heading = ({ hasCheck, isChecked, roomNum, onCheckboxChange }) => {
   return (
-    <Main>
+    <Main data-testid='heading-main-div'>
       {hasCheck && (
         // CHECKBOX
         <Input

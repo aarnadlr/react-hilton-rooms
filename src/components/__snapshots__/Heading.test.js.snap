@@ -4,6 +4,7 @@ exports[`renders correctly 1`] = `
 <DocumentFragment>
   <div
     class="sc-bdVaJa yFXSK"
+    data-testid="heading-main-div"
   >
     <header
       data-testid="heading-header-tag"

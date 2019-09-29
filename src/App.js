@@ -181,7 +181,7 @@ function App() {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <form style={{display:'flex', flexDirection:'column', alignItems:'center'}} onSubmit={handleSubmit}>
         <FormBody>
           {roomValuesAll.map(item => (
             <Room key={item.room}>
@@ -225,11 +225,11 @@ function App() {
           ))}
         </FormBody>
 
-        <Button type="submit">SUBMIT</Button>
+        <Button data-testid={'app-button-submit'} type="submit">SUBMIT</Button>
       </form>
 
       {submitted && (
-        <div style={{ marginTop: '48px' }}>
+        <div data-testid={'app-div-data'} style={{ marginTop: '48px' }}>
           <>
             <strong>Submitted User Data (also printed to console):</strong>
             <br />
