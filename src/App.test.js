@@ -18,10 +18,10 @@ it('changes useState of Submitted to true, and renders user data', () => {
   expect(getByTestId('app-div-data')).toHaveTextContent('Submitted User Data');
 });
 
-describe('The user data that appears on Submit', ()=>{
-  it('always renders at 360px wide',()=>{
+describe('The user data that appears on Submit', () => {
+  it('always renders at 360px wide', () => {
     const { getByTestId } = render(<App />);
     fireEvent.click(getByTestId('app-button-submit'));
-    expect(getByTestId('app-div-data')).toHaveAttribute('style')
-  })
-})
+    expect(getByTestId('app-div-data')).toHaveStyle('width:360px');
+  });
+});
