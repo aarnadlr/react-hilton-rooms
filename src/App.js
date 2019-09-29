@@ -5,6 +5,13 @@ import Select from './components/Select';
 import Heading from './components/Heading';
 import { usePersistentState } from './localstorage';
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  // flex-wrap: wrap;
+`;
+
 const FormBody = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -24,7 +31,7 @@ const Button = styled.button`
 `;
 
 const RoomContainer = styled.section`
-  padding: 56px;
+  padding: 48px;
   background-color: white;
   margin-top: 16px;
   margin-right: ${props => props.marginRight || 0}px;
@@ -176,7 +183,7 @@ function App() {
   };
 
   return (
-    <>
+    <Container>
       <form style={{display:'flex', flexDirection:'column', alignItems:'center', margin: '24px 40px'}} onSubmit={handleSubmit}>
         <FormBody>
           {roomValuesAll.map(item => (
@@ -225,7 +232,7 @@ function App() {
       </form>
 
       {submitted && (
-        <div data-testid={'app-div-data'} style={{ marginTop: '48px' }}>
+        <div data-testid={'app-div-data'} style={{ marginTop: '48px', width: '360px' }}>
           <>
             <strong>Submitted User Data (also printed to console):</strong>
             <br />
@@ -240,7 +247,7 @@ function App() {
           </>
         </div>
       )}
-    </>
+    </Container>
   );
 }
 

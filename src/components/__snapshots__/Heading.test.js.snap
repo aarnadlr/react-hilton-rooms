@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="sc-bdVaJa yFXSK"
+    class="sc-bdVaJa bADHkH"
     data-testid="heading-main-div"
   >
     <header
