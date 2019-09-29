@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Main = styled.div`
   display: flex;
   justify-content: center;
-  margin: 0 0 32px 0;
+  margin: 0 0 40px 0;
 `;
 
 const Input = styled.input`

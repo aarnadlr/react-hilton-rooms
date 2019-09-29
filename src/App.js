@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import Room from './components/Room';
 import styled from 'styled-components';
 import Select from './components/Select';
 import Heading from './components/Heading';
 import { usePersistentState } from './localstorage';
-
-const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 28px 40px;
-`;
 
 const FormBody = styled.div`
   display: flex;
@@ -31,18 +23,23 @@ const Button = styled.button`
   }
 `;
 
-const HeadingContainer = styled.section`
-  padding: 40px;
+const RoomContainer = styled.section`
+  padding: 56px;
   background-color: white;
-  margin-top: 12px;
+  margin-top: 16px;
   margin-right: ${props => props.marginRight || 0}px;
-  -webkit-box-shadow: 5px 5px 42px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 5px 5px 42px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  &:hover{
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const SelectWrapper = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 function App() {
@@ -129,8 +126,7 @@ function App() {
     e.preventDefault();
 
     setSubmitted(true);
-
-    console.log('Data: ', JSON.stringify(roomValuesAll));
+    console.table(roomValuesAll);
   };
 
   const handleCheckboxChange = roomNum => {
@@ -180,12 +176,12 @@ function App() {
   };
 
   return (
-    <Container>
-      <form style={{display:'flex', flexDirection:'column', alignItems:'center'}} onSubmit={handleSubmit}>
+    <>
+      <form style={{display:'flex', flexDirection:'column', alignItems:'center', margin: '24px 40px'}} onSubmit={handleSubmit}>
         <FormBody>
           {roomValuesAll.map(item => (
             <Room key={item.room}>
-              <HeadingContainer marginRight={item.room < 4 ? 12 : 0}>
+              <RoomContainer marginRight={item.room < 4 ? 16 : 0}>
                 <Heading
                   hasCheck={item.hasCheck}
                   roomNum={item.room}
@@ -220,7 +216,7 @@ function App() {
                     name={'child'}
                   />
                 </SelectWrapper>
-              </HeadingContainer>
+              </RoomContainer>
             </Room>
           ))}
         </FormBody>
@@ -244,7 +240,7 @@ function App() {
           </>
         </div>
       )}
-    </Container>
+    </>
   );
 }
 
