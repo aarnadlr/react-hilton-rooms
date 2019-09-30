@@ -209,6 +209,7 @@ function App() {
                       handleSelectChange('adult', item.room, e)
                     }
                     name={'adult'}
+                    roomNum={item.room}
                   />
 
                   {/* CHILD DROPDOWN */}
@@ -221,6 +222,7 @@ function App() {
                       handleSelectChange('child', item.room, e)
                     }
                     name={'child'}
+                    roomNum={item.room}
                   />
                 </SelectWrapper>
               </RoomContainer>

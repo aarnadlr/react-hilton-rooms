@@ -8,7 +8,8 @@ const Select = ({
   isDisabled,
   selectValue,
   handleSelectChange,
-  name
+  name,
+  roomNum
 }) => {
   return (
     <div
@@ -21,7 +22,7 @@ const Select = ({
     >
       <label
         style={{ lineHeight: '1', margin: '0 0 8px 0', textAlign: 'center' }}
-        htmlFor="select"
+        htmlFor={`select-${userType}-${roomNum}`}
         data-testid={'select-label-tag'}
       >
         {userType}
@@ -31,7 +32,7 @@ const Select = ({
 
       <select
         name={name}
-        id="select"
+        id={`select-${userType}-${roomNum}`}
         value={selectValue}
         onChange={handleSelectChange}
         disabled={isDisabled}
