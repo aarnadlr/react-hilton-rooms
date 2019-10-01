@@ -7,7 +7,7 @@ import { usePersistentState } from './localstorage';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   // flex-wrap: wrap;
 `;
 
@@ -37,7 +37,7 @@ const RoomContainer = styled.section`
   box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   border-radius: 12px;
-  &:hover{
+  &:hover {
     transform: translateY(-2px);
     box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.15);
   }
@@ -86,39 +86,32 @@ function App() {
     }
   ]);
 
-  // CHANGE ROOMS 2 & 3 to CHECKED if Room 4 is CHECKED
+  // When Room 4 changes: Change room 2 & 3 to same CHECKED state as Room 4
   useEffect(() => {
-    if (roomValuesAll[3].isChecked) {
-      setRoomValuesAll(
-        roomValuesAll.map(item => {
-          if (item.room < 4) {
-            return {
-              ...item,
-              isChecked: true
-            };
-          }
-          return item;
-        })
-      );
-    }
-  }, [roomValuesAll[3]]);
+    setRoomValuesAll(
+      roomValuesAll.map(item => {
+        return {
+          ...item,
+          isChecked: roomValuesAll[3].isChecked
+        };
+      })
+    );
+  }, [roomValuesAll[3].isChecked]);
 
-  // CHANGE ROOM 2 to CHECKED if Room 3 is CHECKED
+  // When Room 3 changes: Change room 2 to same CHECKED state as Room 3
   useEffect(() => {
-    if (roomValuesAll[2].isChecked) {
-      setRoomValuesAll(
-        roomValuesAll.map(item => {
-          if (item.room < 3) {
-            return {
-              ...item,
-              isChecked: true
-            };
-          }
-          return item;
-        })
-      );
-    }
-  }, [roomValuesAll[2]]);
+    setRoomValuesAll(
+      roomValuesAll.map(item => {
+        if (item.room < 3) {
+          return {
+            ...item,
+            isChecked: roomValuesAll[2].isChecked
+          };
+        }
+        return item;
+      })
+    );
+  }, [roomValuesAll[2].isChecked]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -131,7 +124,7 @@ function App() {
       roomValuesAll.map(item => {
         if (item.room === roomNum) {
           return {
-          	...item,
+            ...item,
             isChecked: !item.isChecked
           };
         }
@@ -152,7 +145,7 @@ function App() {
         if (name === 'child' && item.room === roomNum) {
           return {
             ...item,
-            child: e.target.value,
+            child: e.target.value
           };
         }
         return item;
@@ -162,55 +155,68 @@ function App() {
 
   return (
     <Container>
-      <form style={{display:'flex', flexDirection:'column', alignItems:'center', margin: '24px 40px'}} onSubmit={handleSubmit}>
+      <form
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          margin: '24px 40px'
+        }}
+        onSubmit={handleSubmit}
+      >
         <FormBody>
           {roomValuesAll.map(item => (
-              <RoomContainer key={item.room} marginRight={item.room < 4 ? 16 : 0}>
-                <Heading
-                  hasCheck={item.hasCheck}
+            <RoomContainer key={item.room} marginRight={item.room < 4 ? 16 : 0}>
+              <Heading
+                hasCheck={item.hasCheck}
+                roomNum={item.room}
+                isChecked={item.isChecked}
+                onCheckboxChange={() => handleCheckboxChange(item.room)}
+                isDisabled={item.isDisabled}
+              />
+
+              <SelectWrapper>
+                {/* ADULT DROPDOWN */}
+                <Select
+                  userType={'Adult'}
+                  style={{ marginRight: '16px' }}
+                  ageNum={'18+'}
+                  isDisabled={item.room < 2 ? false : !item.isChecked}
+                  selectValue={item.adult}
+                  handleSelectChange={e =>
+                    handleSelectChange('adult', item.room, e)
+                  }
+                  name={'adult'}
                   roomNum={item.room}
-                  isChecked={item.isChecked}
-                  onCheckboxChange={() => handleCheckboxChange(item.room)}
-                  isDisabled={item.isDisabled}
                 />
 
-                <SelectWrapper>
-                  {/* ADULT DROPDOWN */}
-                  <Select
-                    userType={'Adult'}
-                    style={{ marginRight: '16px' }}
-                    ageNum={'18+'}
-                    isDisabled={item.room < 2 ? false : !item.isChecked}
-                    selectValue={item.adult}
-                    handleSelectChange={e =>
-                      handleSelectChange('adult', item.room, e)
-                    }
-                    name={'adult'}
-                    roomNum={item.room}
-                  />
-
-                  {/* CHILD DROPDOWN */}
-                  <Select
-                    userType={'Child'}
-                    ageNum={'0-17'}
-                    isDisabled={item.room < 2 ? false : !item.isChecked}
-                    selectValue={item.child}
-                    handleSelectChange={e =>
-                      handleSelectChange('child', item.room, e)
-                    }
-                    name={'child'}
-                    roomNum={item.room}
-                  />
-                </SelectWrapper>
-              </RoomContainer>
+                {/* CHILD DROPDOWN */}
+                <Select
+                  userType={'Child'}
+                  ageNum={'0-17'}
+                  isDisabled={item.room < 2 ? false : !item.isChecked}
+                  selectValue={item.child}
+                  handleSelectChange={e =>
+                    handleSelectChange('child', item.room, e)
+                  }
+                  name={'child'}
+                  roomNum={item.room}
+                />
+              </SelectWrapper>
+            </RoomContainer>
           ))}
         </FormBody>
 
-        <Button data-testid={'app-button-submit'} type="submit">SUBMIT</Button>
+        <Button data-testid={'app-button-submit'} type="submit">
+          SUBMIT
+        </Button>
       </form>
 
       {submitted && (
-        <div data-testid={'app-div-data'} style={{ marginTop: '48px', width: '360px' }}>
+        <div
+          data-testid={'app-div-data'}
+          style={{ marginTop: '48px', width: '360px' }}
+        >
           <>
             <strong>Submitted User Data (also printed to console):</strong>
             <br />
