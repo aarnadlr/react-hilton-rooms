@@ -94,12 +94,8 @@ function App() {
         roomValuesAll.map(item => {
           if (item.room < 4) {
             return {
-              room: item.room,
-              adult: item.adult,
-              child: item.child,
-              hasCheck: item.hasCheck,
-              isChecked: true,
-              isDisabled: true
+              ...item,
+              isChecked: true
             };
           }
           return item;
@@ -115,12 +111,8 @@ function App() {
         roomValuesAll.map(item => {
           if (item.room < 3) {
             return {
-              room: item.room,
-              adult: item.adult,
-              child: item.child,
-              hasCheck: item.hasCheck,
-              isChecked: true,
-              isDisabled: true
+              ...item,
+              isChecked: true
             };
           }
           return item;
@@ -131,7 +123,6 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     setSubmitted(true);
     console.table(roomValuesAll);
   };
@@ -141,12 +132,8 @@ function App() {
       roomValuesAll.map(item => {
         if (item.room === roomNum) {
           return {
-            room: item.room,
-            adult: 0,
-            child: 0,
-            hasCheck: true,
-            isChecked: !item.isChecked,
-            isDisabled: true
+          	...item,
+            isChecked: !item.isChecked
           };
         }
         return item;
@@ -159,22 +146,14 @@ function App() {
       roomValuesAll.map(item => {
         if (name === 'adult' && item.room === roomNum) {
           return {
-            room: item.room,
-            adult: e.target.value,
-            child: item.child,
-            hasCheck: item.hasCheck,
-            isChecked: item.isChecked,
-            isDisabled: item.isDisabled
+            ...item,
+            adult: e.target.value
           };
         }
         if (name === 'child' && item.room === roomNum) {
           return {
-            room: item.room,
-            adult: item.adult,
+            ...item,
             child: e.target.value,
-            hasCheck: item.hasCheck,
-            isChecked: item.isChecked,
-            isDisabled: item.isDisabled
           };
         }
         return item;
