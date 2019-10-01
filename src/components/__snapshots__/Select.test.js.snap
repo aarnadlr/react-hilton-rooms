@@ -7,7 +7,7 @@ exports[`renders correctly 1`] = `
   >
     <label
       data-testid="select-label-tag"
-      for="select"
+      for="select-Adult-undefined"
       style="line-height: 1; margin: 0px 0px 8px 0px; text-align: center;"
     >
       Adult
@@ -15,7 +15,7 @@ exports[`renders correctly 1`] = `
       (18)
     </label>
     <select
-      id="select"
+      id="select-Adult-undefined"
       name="adult"
     >
       <option

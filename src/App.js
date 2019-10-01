@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Room from './components/Room';
 import styled from 'styled-components';
 import Select from './components/Select';
 import Heading from './components/Heading';
@@ -89,7 +88,7 @@ function App() {
 
   // CHANGE ROOMS 2 & 3 to CHECKED if Room 4 is CHECKED
   useEffect(() => {
-    if (roomValuesAll[3].isChecked === true) {
+    if (roomValuesAll[3].isChecked) {
       setRoomValuesAll(
         roomValuesAll.map(item => {
           if (item.room < 4) {
@@ -106,7 +105,7 @@ function App() {
 
   // CHANGE ROOM 2 to CHECKED if Room 3 is CHECKED
   useEffect(() => {
-    if (roomValuesAll[2].isChecked === true) {
+    if (roomValuesAll[2].isChecked) {
       setRoomValuesAll(
         roomValuesAll.map(item => {
           if (item.room < 3) {
@@ -166,8 +165,7 @@ function App() {
       <form style={{display:'flex', flexDirection:'column', alignItems:'center', margin: '24px 40px'}} onSubmit={handleSubmit}>
         <FormBody>
           {roomValuesAll.map(item => (
-            <Room key={item.room}>
-              <RoomContainer marginRight={item.room < 4 ? 16 : 0}>
+              <RoomContainer key={item.room} marginRight={item.room < 4 ? 16 : 0}>
                 <Heading
                   hasCheck={item.hasCheck}
                   roomNum={item.room}
@@ -205,7 +203,6 @@ function App() {
                   />
                 </SelectWrapper>
               </RoomContainer>
-            </Room>
           ))}
         </FormBody>
 
