@@ -8,7 +8,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // flex-wrap: wrap;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px 40px;
 `;
 
 const FormBody = styled.div`
@@ -47,6 +53,12 @@ const SelectWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+const SubmitWrapper = styled.div`
+	margin-top: 48px;
+	width: 360px;
+`;
+
 
 function App() {
   const [submitted, setSubmitted] = useState(false);
@@ -109,7 +121,6 @@ function App() {
             child: 0
           };
         }
-        // If Room 4 is checked, return current state
         return item;
       })
     );
@@ -126,7 +137,7 @@ function App() {
             isChecked: roomValuesAll[2].isChecked
           };
         }
-        // If Room 3 is unchecked, Room 4 must be unchecked, and clear Room 4 values
+        // If Room 3 is unchecked, Room 4 must be unchecked and Room 4 values cleared
         if (roomValuesAll[2].isChecked === false && item.room >= 4) {
           return {
             ...item,
@@ -143,7 +154,6 @@ function App() {
             child: 0
           };
         }
-        // If Room 3 is checked, return current state
         return item;
       })
     );
@@ -153,7 +163,7 @@ function App() {
   useEffect(() => {
     setRoomValuesAll(
       roomValuesAll.map(item => {
-        // If Room 2 is unchecked, Room 3 & 4 must be unchecked, and clear Room 3 & 4 values
+        // If Room 2 is unchecked, Room 3 & 4 must be unchecked, and Room 3 & 4 values cleared
         if (roomValuesAll[1].isChecked === false && item.room >= 3) {
           return {
             ...item,
@@ -170,7 +180,6 @@ function App() {
             child: 0
           };
         }
-        // If Room 2 is checked, return current state
         return item;
       })
     );
@@ -218,15 +227,7 @@ function App() {
 
   return (
     <Container>
-      <form
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          margin: '24px 40px'
-        }}
-        onSubmit={handleSubmit}
-      >
+      <Form onSubmit={handleSubmit}>
         <FormBody>
           {roomValuesAll.map(item => (
             <RoomContainer key={item.room} marginRight={item.room < 4 ? 16 : 0}>
@@ -242,7 +243,7 @@ function App() {
                 {/* ADULT DROPDOWN */}
                 <Select
                   userType={'Adult'}
-                  style={{ marginRight: '16px' }}
+                  margin={'0 16px 0 0'}
                   ageNum={'18+'}
                   isDisabled={item.room < 2 ? false : !item.isChecked}
                   selectValue={item.adult}
@@ -255,6 +256,7 @@ function App() {
 
                 {/* CHILD DROPDOWN */}
                 <Select
+									margin={'0'}
                   userType={'Child'}
                   ageNum={'0-17'}
                   isDisabled={item.room < 2 ? false : !item.isChecked}
@@ -273,12 +275,11 @@ function App() {
         <Button data-testid={'app-button-submit'} type="submit">
           SUBMIT
         </Button>
-      </form>
+      </Form>
 
       {submitted && (
-        <div
+        <SubmitWrapper
           data-testid={'app-div-data'}
-          style={{ marginTop: '48px', width: '360px' }}
         >
           <>
             <strong>Submitted User Data (also printed to console):</strong>
@@ -292,7 +293,7 @@ function App() {
               </div>
             ))}
           </>
-        </div>
+        </SubmitWrapper>
       )}
     </Container>
   );

@@ -1,8 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  margin: ${props => props.margin};
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+`;
+
+const Label = styled.label`
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+  text-align: center;
+`;
 
 const Select = ({
-  style,
+  margin,
   userType,
   ageNum,
   isDisabled,
@@ -12,23 +26,14 @@ const Select = ({
   roomNum
 }) => {
   return (
-    <div
-      style={{
-        ...style,
-        display: 'flex',
-        flexDirection: 'column',
-        width: '50px'
-      }}
-    >
-      <label
-        style={{ lineHeight: '1', margin: '0 0 8px 0', textAlign: 'center' }}
+    <Container margin={margin}>
+      <Label
         htmlFor={`select-${userType}-${roomNum}`}
         data-testid={'select-label-tag'}
       >
         {userType}
-        <br />
-        ({ageNum})
-      </label>
+        <br />({ageNum})
+      </Label>
 
       <select
         name={name}
@@ -42,12 +47,16 @@ const Select = ({
         <option value="2">2</option>
         <option value="3">3</option>
       </select>
-    </div>
+    </Container>
   );
 };
 
+Container.propTypes = {
+  margin: PropTypes.string,
+};
+
 Select.propTypes = {
-  style: PropTypes.object,
+  margin: PropTypes.string,
   userType: PropTypes.string.isRequired,
   ageNum: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
