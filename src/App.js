@@ -86,32 +86,95 @@ function App() {
     }
   ]);
 
-  // When Room 4 changes: Change room 2 & 3 to same CHECKED state as Room 4
+  // When Room 4 is changed
   useEffect(() => {
     setRoomValuesAll(
       roomValuesAll.map(item => {
-        return {
-          ...item,
-          isChecked: roomValuesAll[3].isChecked
-        };
+        // If Room 4 is checked, all rooms get checked
+        if (roomValuesAll[3].isChecked === true && item.room <= 3) {
+          return {
+            ...item,
+            isChecked: roomValuesAll[3].isChecked
+          };
+        }
+        // If Room 4 is unchecked, all other rooms keep their state
+        if (roomValuesAll[3].isChecked === false && item.room <= 3) {
+          return item;
+        }
+        // If Room 4 is unchecked, clear Room 4 values
+        if (roomValuesAll[3].isChecked === false && item.room === 4) {
+          return {
+            ...item,
+            adult: 0,
+            child: 0
+          };
+        }
+        // If Room 4 is checked, return current state
+        return item;
       })
     );
   }, [roomValuesAll[3].isChecked]);
 
-  // When Room 3 changes: Change room 2 to same CHECKED state as Room 3
+  // When Room 3 is changed
   useEffect(() => {
     setRoomValuesAll(
       roomValuesAll.map(item => {
-        if (item.room < 3) {
+        // If Room 3 is checked, Room 2 gets checked
+        if (roomValuesAll[2].isChecked === true && item.room <= 2) {
           return {
             ...item,
             isChecked: roomValuesAll[2].isChecked
           };
         }
+        // If Room 3 is unchecked, Room 4 must be unchecked, and clear Room 4 values
+        if (roomValuesAll[2].isChecked === false && item.room >= 4) {
+          return {
+            ...item,
+            isChecked: roomValuesAll[2].isChecked,
+            adult: 0,
+            child: 0
+          };
+        }
+        // If Room 3 is unchecked, clear Room 3 values
+        if (roomValuesAll[2].isChecked === false && item.room === 3) {
+          return {
+            ...item,
+            adult: 0,
+            child: 0
+          };
+        }
+        // If Room 3 is checked, return current state
         return item;
       })
     );
   }, [roomValuesAll[2].isChecked]);
+
+  // When Room 2 is changed
+  useEffect(() => {
+    setRoomValuesAll(
+      roomValuesAll.map(item => {
+        // If Room 2 is unchecked, Room 3 & 4 must be unchecked, and clear Room 3 & 4 values
+        if (roomValuesAll[1].isChecked === false && item.room >= 3) {
+          return {
+            ...item,
+            isChecked: roomValuesAll[1].isChecked,
+            adult: 0,
+            child: 0
+          };
+        }
+        // If Room 2 is unchecked, clear Room 2 values
+        if (roomValuesAll[2].isChecked === false && item.room === 2) {
+          return {
+            ...item,
+            adult: 0,
+            child: 0
+          };
+        }
+        // If Room 2 is checked, return current state
+        return item;
+      })
+    );
+  }, [roomValuesAll[1].isChecked]);
 
   const handleSubmit = e => {
     e.preventDefault();
