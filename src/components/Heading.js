@@ -18,13 +18,14 @@ const Heading = ({ hasCheck, isChecked, roomNum, onCheckboxChange }) => {
   return (
     <Main data-testid='heading-main-div'>
       {hasCheck && (
-        // CHECKBOX
+
+        // CHECKBOX ELEMENT
         <Input
           name="roomCheck"
           type="checkbox"
           checked={isChecked}
           onChange={onCheckboxChange}
-          data-testid='heading-input-tag'
+          data-testid={`heading-input-tag-${roomNum}`}
         />
       )}
       <header data-testid='heading-header-tag'>Room {roomNum}</header>

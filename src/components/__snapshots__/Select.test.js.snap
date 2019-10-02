@@ -3,12 +3,12 @@
 exports[`renders correctly 1`] = `
 <DocumentFragment>
   <div
-    style="display: flex; flex-direction: column; width: 50px;"
+    class="sc-bdVaJa bTEbsp"
   >
     <label
+      class="sc-bwzfXH veGOu"
       data-testid="select-label-tag"
       for="select-Adult-undefined"
-      style="line-height: 1; margin: 0px 0px 8px 0px; text-align: center;"
     >
       Adult
       <br />
